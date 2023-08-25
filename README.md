@@ -19,3 +19,4 @@ Secure online payment processing, supporting multiple payment methods for a seam
 
 Technologies Used:
 Frontend: HTML5, CSS3, JavaScript , Jquery
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3b033b33-f52c-468d-b11b-6859c20fd71e/deploy-status)](https://app.netlify.com/sites/reliable-otter-883e13/deploys)
