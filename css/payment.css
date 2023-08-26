@@ -1,10 +1,13 @@
 *{
     box-sizing: border-box;
+    padding-left: 70px;
+    padding-right: 70px;
+    margin-top: 10px;
 }
 body{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin:15px 30px;
-    font-size: 15px;
+    font-size: 17px;
     padding:5px;
 }
 .contain {
@@ -32,7 +35,7 @@ textarea{
 }
 input[type="submit"]
 {
-    background-color: #4daea1;
+    background-color:  #ce3232;
     color:white;
     padding: 12px 20px;
     border: black;
@@ -41,5 +44,11 @@ input[type="submit"]
     width: 100%;
 }
 input[type="submit"]:hover{
-    background-color:darkblue;
+    background-color:lightslategray ;
+}
+fieldset,input[type="submit"]{
+    position: relative;
+    margin-left: 80px;
+    height: 80px;
+    width: 730px;
 }
