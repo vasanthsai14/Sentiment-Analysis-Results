@@ -131,8 +131,6 @@ h1, h2, h3, h4, h5, h6, p{
 }
 
 .header{
-    /*  ../images/vit-ch-Oxb84ENcFfU-unsplash.jpg   */
-    /*  ../images/header-banner.jpg  */
     min-height: 100vh;
     background: linear-gradient(rgba(0, 0, 0, 0.46), rgba(0, 0, 0, 0.3)),linear-gradient(to right, rgba(0, 0, 0, 0.35), transparent), url(../images/vit-ch-Oxb84ENcFfU-unsplash.jpg) center/cover fixed;
     display: flex;
