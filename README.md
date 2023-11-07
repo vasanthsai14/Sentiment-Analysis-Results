@@ -5,7 +5,6 @@ Features:
 1. Restaurant Landing Page:
 Our landing page provides a captivating introduction to the restaurant's ambiance, cuisine, and unique offerings. It's designed to create an enticing visual experience that leaves a lasting impression on visitors. Key features of the landing page include:
 
-High-resolution images showcasing the restaurant's interior, dishes, and atmosphere.
 Clear and concise descriptions that highlight the restaurant's specialties and unique features.
 Social media integration, enabling visitors to follow and engage with us on various platforms.
 Easy-to-use navigation for quick access to different sections of the website.
