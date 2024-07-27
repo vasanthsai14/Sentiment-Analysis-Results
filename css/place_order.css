@@ -106,16 +106,17 @@ header .icons #menu-bars {
   margin-top: 18px;
   text-align: center;
   color: var(--black);
-  font-size: 3rem;
+  font-size: 2.2rem;
   padding-bottom: 2rem;
   padding-left: 130px;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .categories {
-  border-radius: 2px;
+  border-radius: 1px;
   border-color: #192a56;
   width: 232px;
+ 
   margin-left: 14px;
   display: grid;
   position: fixed;
@@ -129,21 +130,22 @@ header .icons #menu-bars {
   text-align: center;
   color: var(--red);
   font-size: 2.5rem;
-  padding-top: 1rem;
+  padding-top: 0.5rem;
 }
 .categories .box {
   width: inherit;
   border-radius: 5px;
   margin-left: 2px;
+  height: 45px;
   padding: 1.7rem 0.6rem;
   font-weight: 640;
-  text-align: left;
+  text-align: left ;
   color: #192a56;
-  font-size: 21px;
+  font-size: 20px;
   background: #fff;
-  position: relative;
+  position: center;
   overflow: hidden;
-  margin-bottom: 8px;
+  margin-bottom: 6.4px;
   box-shadow: #192a56;
 }
 .categories .box:hover {
@@ -196,7 +198,20 @@ header .icons #menu-bars {
   color: var(--black);
   font-size: 2.3rem;
 }
-
+#reasons {
+  margin-top: 20px;
+  background-color: #e8f4f8;
+  padding: 15px;
+  border-left: 5px solid #007BFF;
+  border-radius: 5px;
+}
+#reasons p {
+  margin: 0;
+  color: #333;
+}
+#reasons strong {
+  color: #007BFF;
+}
 .dishes .box-container .box span {
   color: var(--red);
   font-weight: bolder;
