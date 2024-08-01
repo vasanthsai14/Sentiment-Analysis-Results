@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    <title>Sentiment Analysis</title>
+    <link rel="icon" href="images/orderlogo.png" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/place_order.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <script src="js/jquery-3.5.1.js"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  <script src="https://kit.fontawesome.com/953eae4970.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/place_order.js"></script>  
+</head>
+<body>
+  <header>
+
+    <a href="#" class="logo"><i class="fas fa-user-tie"></i>   Sentiment Analysis on Employees' Reviews</a>
+
+    <nav class="navbar">
+        <a href="#home">home</a>
+        <a href="https://colab.research.google.com/drive/1tc91fKoViY-oqxTDfzcoI1uDIme_riUe?usp=sharing" target="__blank">Explore</a>
+        <a href="https://www.kaggle.com/datasets/davidgauthier/glassdoor-job-reviews" target="__blank">Dataset</a>        
+    </nav>
+
+    <div class="icons">
+        <i class="fas fa-bars" id="menu-bars"></i>
+        <i class="fas fa-search" id="search-icon" onclick="navigateToSearchPage()"></i>
+        <a href="login.html" target="__blank" ><i class="fas fa-user-plus"></i></a>
+        <!-- <a id="openCart" class="openCart" onclick="openingcart()"><i class="fas fa-shopping-cart"></i> </a> -->
+         </div>
+
+         <script>
+            function navigateToSearchPage() {
+                window.location.href = 'search.html'; // Redirects to the new page with the search bar
+            }
+        </script>
+
+</header>
+<!-- Category Sections -->
+<section class="categories" id="categories" >
+    <h3>Sectors</h3>
+    <a class="box" href="#Main Course" >Health</a>
+    <a class="box" href="#Barbeque Specials" >Consulting</a>
+    <a class="box" href="#Pizza" >Retail</a>
+    <a class="box" href="#Pasta" >technology</a>
+    <a class="box" href="#Desserts" >Education</a>
+    <a class="box" href="#Ice Cream" >Finance</a>
+    <a class="box" href="#Beverages" >Manufacturing</a>
+    <a class="box" href="#Beverages" >Media</a>
+</section>
+
+    <!-- Menu Sections -->
+    <section class="dishes" id="dishes">
+
+        <h3 class="sub-heading"> Result Analysis</h3>
+        <h1 class="heading" id="Appetizers">Sector Wise Average Ratings </h1>
+        <div class="box-container">
+
+            <div class="box">
+                
+                <canvas id="averageRatingsChart"></canvas>
+                
+            </div>        
+        </div>
+
+        <h1 class="heading" id="Appetizers">Company wise ratings</h1>
+<div class="box-container">
+    <div class="box">
+        <div id="mappings">
+            <p><strong>Company Mappings:</strong> 
+                A - ActionCOACH, B - Adecco, C - AlixPartners, D - Angard-Staffing, E - Aon, F - BDO, G - BIS, H - Achieving-for-Children, 
+                I - BPP-Holdings, J - AFH-Wealth-Management, K - AJ-Bell, L - American-Express, M - Aviva, N - AXA-UK, O - BNP-Paribas, 
+                P - BNY-Mellon, Q - Abcam, R - Abertawe-Bro-Morgannwg-University-Health-Board, S - Accor, T - Active-Care-Group, 
+                U - Age-UK-The-National-Charity, V - Anglian-Water, W - Animal-and-Plant-Health-Agency, X - AstraZeneca, Y - Anglo-American, 
+                Z - BAT, AA - BP, BB - BBC, CC - ALDI, DD - Arcadia, EE - Arnold-Clark, FF - ASDA, GG - ASOS, HH - B-and-M-Retail, 
+                II - B-and-Q, JJ - BHS, KK - Accenture, LL - Amey, MM - Apple, NN - AQA, OO - BT
+            </p>
+        </div>
+        <canvas id="companyRatingsChart"></canvas>
+    </div>        
+</div>
+
+
+        <h1 class="heading" id="Main Course">Health</h1>
+    <div class="box-container">
+        <div class="box">
+            <div id="mappings">
+                <p><strong>Company Mappings:</strong> A - Abcam, B - Abertawe-Bro-Morgannwg-University-Health-Board, C - Accor, D - Active-Care-Group, E - Age-UK-The-National-Charity, F - Anglian-Water, G - Animal-and-Plant-Health-Agency, H - AstraZeneca</p>
+            </div>
+            <canvas id="healthRatingsChart"></canvas>
+            <div id="reasons">
+                <p style="font-size:14px;"><strong>Possible Reasons for These Ratings:</strong></p>
+                <ul style="font-size:14px; text-align:left;">
+                    <li>Companies in the health sector often face challenges such as <span style="text-decoration: underline; color: black; font-size:12px;">poor salaries</span>, <span style="text-decoration: underline; color: black; font-size:12px;">significant age gaps</span> between employees leading to <span style="text-decoration: underline; color: black; font-size:12px;">communication issues</span>, <span style="text-decoration: underline; color: black; font-size:12px;">limited career advancement opportunities</span>, <span style="text-decoration: underline; color: black; font-size:12px;">subpar work-life balance</span>, and <span style="text-decoration: underline; color: black; font-size:12px;">inadequate employee benefits</span>.</li>
+                    <li>However, they also provide the opportunity to <span style="text-decoration: underline; color: black; font-size:12px;">make a meaningful impact</span> on people's lives and offer <span style="text-decoration: underline; color: black; font-size:12px;">diverse roles and experiences</span>.</li>
+                    <li>These companies often have a <span style="text-decoration: underline; color: black; font-size:12px;">strong sense of community</span> and <span style="text-decoration: underline; color: black; font-size:12px;">teamwork</span>.</li>
+                    <li>Many health organizations are now focusing on <span style="text-decoration: underline; color: black; font-size:12px;">improving employee well-being</span>, <span style="text-decoration: underline; color: black; font-size:12px;">career development</span>, and <span style="text-decoration: underline; color: black; font-size:12px;">benefits</span>.</li>
+                    <li>The sector presents <span style="text-decoration: underline; color: black; font-size:12px;">unique learning opportunities</span> and <span style="text-decoration: underline; color: black; font-size:12px;">advancements in medical technology and research</span>, which can be highly rewarding for those passionate about healthcare.</li>
+                </ul>
+            </div>
+            
+            
+        </div>
+    </div>
+
+    <h1 class="heading" id="Barbeque Specials">Consulting</h1>
+    <div class="box-container">
+        <div class="box">
+            <div id="mappingsConsulting">
+                <p><strong>Company Mappings:</strong> A - ActionCOACH, B - Adecco, C - AlixPartners, D - Angard-Staffing, E - Aon, F - BDO, G - BIS</p>
+            </div>
+            <canvas id="consultingRatingsChart"></canvas>
+            <div id="reasons">
+                <p style="font-size:14px ;"><strong>Possible Reasons for These Ratings:</strong> Consulting companies often face issues such as high employee turnover, intense work pressure, inconsistent work-life balance, limited job security, and frequent travel requirements.However, they also provide the opportunity to make a meaningful impact on people's lives, offer diverse roles and experiences, and often have a strong sense of community and teamwork. Many health organizations are now focusing on improving employee well-being, career development, and benefits. </p>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="heading" id="Pizza">Retail</h1>
+    <div class="box-container">
+        <div class="box">
+            <div id="mappingsRetail">
+                <p><strong>Company Mappings:</strong> A - ALDI, B - Arcadia, C - Arnold-Clark, D - ASDA, E - ASOS, F - B-and-M-Retail, G - B-and-Q, H - BHS</p>
+            </div>
+            <canvas id="retailRatingsChart"></canvas>
+            <div id="reasons">
+                <p style="font-size:14px ;"><strong>Possible Reasons for These Ratings:</strong> Retail companies often struggle with issues like long working hours, low wages, high employee turnover, demanding customer interactions, and limited career advancement opportunities.</p>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="heading" id="Pasta">Technology</h1>
+    <div class="box-container">
+        <div class="box">
+            <div id="mappingsTechnology">
+                <p><strong>Company Mappings:</strong> A - Accenture, B - Amey, C - Apple, D - AQA, E - BT</p>
+            </div>
+            <canvas id="technologyRatingsChart"></canvas>
+            <div id="reasons">
+                <p style="font-size:14px ;"><strong>Possible Reasons for These Ratings:</strong> Technology companies often face issues such as rapid technological changes, high expectations for innovation, work-life balance challenges, intense competition, and pressure to meet tight deadlines.</p>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="heading" id="Desserts">Education</h1>
+    <div class="box-container">
+        <div class="box">
+            <div id="mappingsEducation">
+                <p><strong>Company Mappings:</strong> A - Achieving-for-Children, B - BPP-Holdings</p>
+            </div>
+            <canvas id="educationRatingsChart"></canvas>
+            <div id="reasons">
+                <p style="font-size:14px ;"><strong>Possible Reasons for These Ratings:</strong> Education sector companies often face issues such as budget constraints, high workload for staff, limited professional development opportunities, bureaucratic hurdles, and inconsistent student engagement.</p>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="heading" id="Ice Cream">Finance</h1>
+    <div class="box-container">
+        <div class="box">
+            <div id="mappingsFinance">
+                <p><strong>Company Mappings:</strong> A - AFH-Wealth-Management, B - AJ-Bell, C - American-Express, D - Aviva, E - AXA-UK, F - BNP-Paribas, G - BNY-Mellon</p>
+            </div>
+            <canvas id="financeRatingsChart"></canvas>
+            <div id="reasons">
+                <p style="font-size:14px ;"><strong>Possible Reasons for These Ratings:</strong> Finance sector companies often deal with issues such as high-stress environments, stringent regulatory requirements, significant workload, fluctuating job stability, and intense market competition.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <h1 class="heading" id="Beverages">Manufacturing</h1>
+<div class="box-container">
+    <div class="box">
+        <div id="mappingsManufacturing">
+            <p><strong>Company Mappings:</strong> A - Anglo-American, B - BAT, C - BP</p>
+        </div>
+        <canvas id="manufacturingRatingsChart"></canvas>
+        <div id="reasons">
+            <p style="font-size:14px ;"><strong>Possible Reasons for These Ratings:</strong> Manufacturing sector companies often contend with issues such as stringent production targets, high operational costs, labor strikes, equipment malfunctions, and environmental regulatory pressures.</p>
+        </div>
+    </div>
+</div>
+    </section>
+    <script>
+        // Data for the chart
+        const sectors = ["CONSULTING", "EDUCATION", "FINANCE", "HEALTH", "MANUFACTURING", "MEDIA", "RETAIL", "TECH"];
+        const averageRatings = [3.2, 3, 2.9, 3.1, 3.2, 3.5, 2.8, 3.2];
+    
+        // Get the context of the canvas element we want to select
+        const ctx = document.getElementById('averageRatingsChart').getContext('2d');
+    
+        // Create the chart
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: sectors,
+                datasets: [{
+                    label: 'Average Rating',
+                    data: averageRatings,
+                    backgroundColor: 'skyblue',
+                    borderColor: 'blue',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Sector'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Average Rating'
+                        },
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 0.5
+                        },
+                        grid: {
+                            display: true,
+                            borderColor: 'grey',
+                            borderDash: [2, 5],
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Average Ratings by Sector'
+                    }
+                }
+            }
+        });
+    </script>
+
+<script>
+    // Define the data
+    const companyData = [
+        { firm: "ActionCOACH", sector: "CONSULTING", rating: 3.6 },
+        { firm: "Adecco", sector: "CONSULTING", rating: 2.7 },
+        { firm: "AlixPartners", sector: "CONSULTING", rating: 3.7 },
+        { firm: "Angard-Staffing", sector: "CONSULTING", rating: 2.8 },
+        { firm: "Aon", sector: "CONSULTING", rating: 3.3 },
+        { firm: "BDO", sector: "CONSULTING", rating: 3.1 },
+        { firm: "BIS", sector: "CONSULTING", rating: 2.9 },
+        { firm: "Achieving-for-Children", sector: "EDUCATION", rating: 3.3 },
+        { firm: "BPP-Holdings", sector: "EDUCATION", rating: 2.7 },
+        { firm: "AFH-Wealth-Management", sector: "FINANCE", rating: 2.2 },
+        { firm: "AJ-Bell", sector: "FINANCE", rating: 2.7 },
+        { firm: "American-Express", sector: "FINANCE", rating: 3.4 },
+        { firm: "Aviva", sector: "FINANCE", rating: 3.0 },
+        { firm: "AXA-UK", sector: "FINANCE", rating: 3.4 },
+        { firm: "BNP-Paribas", sector: "FINANCE", rating: 3.0 },
+        { firm: "BNY-Mellon", sector: "FINANCE", rating: 2.7 },
+        { firm: "Abcam", sector: "HEALTH", rating: 3.8 },
+        { firm: "Abertawe-Bro-Morgannwg-University-Health-Board", sector: "HEALTH", rating: 1.6 },
+        { firm: "Accor", sector: "HEALTH", rating: 3.3 },
+        { firm: "Active-Care-Group", sector: "HEALTH", rating: 2.7 },
+        { firm: "Age-UK-The-National-Charity", sector: "HEALTH", rating: 3.3 },
+        { firm: "Anglian-Water", sector: "HEALTH", rating: 3.5 },
+        { firm: "Animal-and-Plant-Health-Agency", sector: "HEALTH", rating: 3.3 },
+        { firm: "AstraZeneca", sector: "HEALTH", rating: 3.3 },
+        { firm: "Anglo-American", sector: "MANUFACTURING", rating: 3.2 },
+        { firm: "BAT", sector: "MANUFACTURING", rating: 3.3 },
+        { firm: "BP", sector: "MANUFACTURING", rating: 3.1 },
+        { firm: "BBC", sector: "MEDIA", rating: 3.5 },
+        { firm: "ALDI", sector: "RETAIL", rating: 2.8 },
+        { firm: "Arcadia", sector: "RETAIL", rating: 2.7 },
+        { firm: "Arnold-Clark", sector: "RETAIL", rating: 2.7 },
+        { firm: "ASDA", sector: "RETAIL", rating: 2.8 },
+        { firm: "ASOS", sector: "RETAIL", rating: 2.8 },
+        { firm: "B-and-M-Retail", sector: "RETAIL", rating: 3.0 },
+        { firm: "B-and-Q", sector: "RETAIL", rating: 2.8 },
+        { firm: "BHS", sector: "RETAIL", rating: 3.0 },
+        { firm: "Accenture", sector: "TECH", rating: 3.5 },
+        { firm: "Amey", sector: "TECH", rating: 2.8 },
+        { firm: "Apple", sector: "TECH", rating: 3.6 },
+        { firm: "AQA", sector: "TECH", rating: 3.1 },
+        { firm: "BT", sector: "TECH", rating: 3.1 }
+    ];
+
+    // Define colors for each sector
+    const sectorColors = {
+        CONSULTING: 'rgba(75, 192, 192, 0.6)',
+        EDUCATION: 'rgba(255, 159, 64, 0.6)',
+        FINANCE: 'rgba(255, 205, 86, 0.6)',
+        HEALTH: 'rgba(54, 162, 235, 0.6)',
+        MANUFACTURING: 'rgba(153, 102, 255, 0.6)',
+        MEDIA: 'rgba(201, 203, 207, 0.6)',
+        RETAIL: 'rgba(255, 99, 132, 0.6)',
+        TECH: 'rgba(255, 159, 64, 0.6)'
+    };
+
+    // Generate mappings for companies to letters
+    const firms = companyData.map((item, index) => String.fromCharCode(65 + index));
+    const companyMappings = companyData.map((item, index) => {
+        return `${String.fromCharCode(65 + index)} - ${item.firm}`;
+    }).join(', ');
+
+    // Update the mappings div content
+    document.getElementById('mappings').innerHTML = `<p><strong>Company Mappings:</strong> ${companyMappings}</p>`;
+
+    // Get ratings and colors for each firm
+    const ratings = companyData.map(item => item.rating);
+    const colors = companyData.map(item => sectorColors[item.sector]);
+
+    // Bar chart for company ratings
+    const ctxCompanyRatings = document.getElementById('companyRatingsChart').getContext('2d');
+    new Chart(ctxCompanyRatings, {
+        type: 'bar',
+        data: {
+            labels: firms,
+            datasets: [{
+                label: 'Average Rating',
+                data: ratings,
+                backgroundColor: colors,
+                borderColor: colors.map(color => color.replace('0.6', '1')),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Company'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Average Rating'
+                    },
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 0.5
+                    },
+                    grid: {
+                        display: true,
+                        borderColor: 'grey',
+                        borderDash: [2, 5],
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: 'Average Ratings of Companies by Sector'
+                }
+            }
+        }
+    });
+</script>
+
+<script>
+    // Load the data for the Health sector
+    const healthData = [
+        { firm: "Abcam", rating: 3.8 },
+        { firm: "Abertawe-Bro-Morgannwg-University-Health-Board", rating: 1.6 },
+        { firm: "Accor", rating: 3.3 },
+        { firm: "Active-Care-Group", rating: 2.7 },
+        { firm: "Age-UK-The-National-Charity", rating: 3.3 },
+        { firm: "Anglian-Water", rating: 3.5 },
+        { firm: "Animal-and-Plant-Health-Agency", rating: 3.3 },
+        { firm: "AstraZeneca", rating: 3.3 }
+    ];
+
+    // Get firm names and ratings
+    const healthFirms = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    const healthRatings = healthData.map(item => item.rating);
+
+    // Function to generate star rating string
+    function getStarRating(rating) {
+        const filledStars = Math.round(rating);
+        const emptyStars = 5 - filledStars;
+        return '★'.repeat(filledStars) + '☆'.repeat(emptyStars);
+    }
+
+    const averageHealthRating = 3.1; // Use the correct average rating if different
+    const healthStarRating = getStarRating(averageHealthRating);
+
+    // Line chart for Health sector ratings
+    const ctxHealthRatings = document.getElementById('healthRatingsChart').getContext('2d');
+    new Chart(ctxHealthRatings, {
+        type: 'line',
+        data: {
+            labels: healthFirms,
+            datasets: [{
+                label: 'Average Rating',
+                data: healthRatings,
+                borderColor: 'blue',
+                backgroundColor: 'lightblue',
+                fill: false,
+                borderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Company'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Average Rating'
+                    },
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 0.5
+                    },
+                    grid: {
+                        display: true,
+                        borderColor: 'grey',
+                        borderDash: [2, 5],
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Average Ratings of Companies in the Health Sector: ${averageHealthRating} ${healthStarRating}`,
+                    color: 'blue',
+                    font: {
+                        size: 16
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+<script>
+    // Load the data for the Consulting sector
+    const consultingData = [
+        { firm: "ActionCOACH", rating: 3.6 },
+        { firm: "Adecco", rating: 2.7 },
+        { firm: "AlixPartners", rating: 3.7 },
+        { firm: "Angard-Staffing", rating: 2.8 },
+        { firm: "Aon", rating: 3.3 },
+        { firm: "BDO", rating: 3.1 },
+        { firm: "BIS", rating: 2.9 }
+    ];
+
+    // Get firm names and ratings
+    const consultingFirms = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+    const consultingRatings = consultingData.map(item => item.rating);
+
+    // Function to generate star rating string
+    function getStarRating(rating) {
+        const filledStars = Math.round(rating);
+        const emptyStars = 5 - filledStars;
+        return '★'.repeat(filledStars) + '☆'.repeat(emptyStars);
+    }
+
+    const averageConsultingRating = 3.2; // Use the correct average rating if different
+    const consultingStarRating = getStarRating(averageConsultingRating);
+
+    // Line chart for Consulting sector ratings
+    const ctxConsultingRatings = document.getElementById('consultingRatingsChart').getContext('2d');
+    new Chart(ctxConsultingRatings, {
+        type: 'line',
+        data: {
+            labels: consultingFirms,
+            datasets: [{
+                label: 'Average Rating',
+                data: consultingRatings,
+                borderColor: 'blue',
+                backgroundColor: 'lightblue',
+                fill: false,
+                borderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Company'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Average Rating'
+                    },
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 0.5
+                    },
+                    grid: {
+                        display: true,
+                        borderColor: 'grey',
+                        borderDash: [2, 5],
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Average Ratings of Companies in the Consulting Sector: ${averageConsultingRating} ${consultingStarRating}`,
+                    color: 'blue',
+                    font: {
+                        size: 16
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+<script>
+    // Load the data for the Retail sector
+    const retailData = [
+        { firm: "ALDI", rating: 2.8 },
+        { firm: "Arcadia", rating: 2.7 },
+        { firm: "Arnold-Clark", rating: 2.7 },
+        { firm: "ASDA", rating: 2.8 },
+        { firm: "ASOS", rating: 2.8 },
+        { firm: "B-and-M-Retail", rating: 3.0 },
+        { firm: "B-and-Q", rating: 2.8 },
+        { firm: "BHS", rating: 3.0 }
+    ];
+
+    // Get firm names and ratings
+    const retailFirms = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    const retailRatings = retailData.map(item => item.rating);
+
+    // Function to generate star rating string
+    function getStarRating(rating) {
+        const filledStars = Math.round(rating);
+        const emptyStars = 5 - filledStars;
+        return '★'.repeat(filledStars) + '☆'.repeat(emptyStars);
+    }
+
+    const averageRetailRating = 2.8; // Use the correct average rating if different
+    const retailStarRating = getStarRating(averageRetailRating);
+
+    // Line chart for Retail sector ratings
+    const ctxRetailRatings = document.getElementById('retailRatingsChart').getContext('2d');
+    new Chart(ctxRetailRatings, {
+        type: 'line',
+        data: {
+            labels: retailFirms,
+            datasets: [{
+                label: 'Average Rating',
+                data: retailRatings,
+                borderColor: 'blue',
+                backgroundColor: 'lightblue',
+                fill: false,
+                borderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Company'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Average Rating'
+                    },
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 0.5
+                    },
+                    grid: {
+                        display: true,
+                        borderColor: 'grey',
+                        borderDash: [2, 5],
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Average Ratings of Companies in the Retail Sector: ${averageRetailRating} ${retailStarRating}`,
+                    color: 'blue',
+                    font: {
+                        size: 16
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+
+
+<script>
+    // Load the data for the Technology sector
+    const technologyData = [
+        { firm: "Accenture", rating: 3.5 },
+        { firm: "Amey", rating: 2.8 },
+        { firm: "Apple", rating: 3.6 },
+        { firm: "AQA", rating: 3.1 },
+        { firm: "BT", rating: 3.1 }
+    ];
+
+    // Get firm names and ratings
+    const technologyFirms = ['A', 'B', 'C', 'D', 'E'];
+    const technologyRatings = technologyData.map(item => item.rating);
+
+    // Function to generate star rating string
+    function getStarRating(rating) {
+        const filledStars = Math.round(rating);
+        const emptyStars = 5 - filledStars;
+        return '★'.repeat(filledStars) + '☆'.repeat(emptyStars);
+    }
+
+    const averageTechnologyRating = 3.2; // Use the correct average rating if different
+    const technologyStarRating = getStarRating(averageTechnologyRating);
+
+    // Line chart for Technology sector ratings
+    const ctxTechnologyRatings = document.getElementById('technologyRatingsChart').getContext('2d');
+    new Chart(ctxTechnologyRatings, {
+        type: 'line',
+        data: {
+            labels: technologyFirms,
+            datasets: [{
+                label: 'Average Rating',
+                data: technologyRatings,
+                borderColor: 'blue',
+                backgroundColor: 'lightblue',
+                fill: false,
+                borderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Company'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Average Rating'
+                    },
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 0.5
+                    },
+                    grid: {
+                        display: true,
+                        borderColor: 'grey',
+                        borderDash: [2, 5],
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Average Ratings of Companies in the Technology Sector: ${averageTechnologyRating} ${technologyStarRating}`,
+                    color: 'blue',
+                    font: {
+                        size: 16
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+<script>
+    // Load the data for the Education sector
+    const educationData = [
+        { firm: "Achieving-for-Children", rating: 3.3 },
+        { firm: "BPP-Holdings", rating: 2.7 }
+    ];
+
+    // Get firm names and ratings
+    const educationFirms = ['A', 'B'];
+    const educationRatings = educationData.map(item => item.rating);
+
+    const averageEducationRating = 3.0; // Use the correct average rating if different
+    const educationStarRating = getStarRating(averageEducationRating);
+
+    // Line chart for Education sector ratings
+    const ctxEducationRatings = document.getElementById('educationRatingsChart').getContext('2d');
+    new Chart(ctxEducationRatings, {
+        type: 'line',
+        data: {
+            labels: educationFirms,
+            datasets: [{
+                label: 'Average Rating',
+                data: educationRatings,
+                borderColor: 'blue',
+                backgroundColor: 'lightblue',
+                fill: false,
+                borderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Company'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Average Rating'
+                    },
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 0.5
+                    },
+                    grid: {
+                        display: true,
+                        borderColor: 'grey',
+                        borderDash: [2, 5],
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Average Ratings of Companies in the Education Sector: ${averageEducationRating} ${educationStarRating}`,
+                    color: 'blue',
+                    font: {
+                        size: 16
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+<script>
+    // Load the data for the Finance sector
+    const financeData = [
+        { firm: "AFH-Wealth-Management", rating: 2.2 },
+        { firm: "AJ-Bell", rating: 2.7 },
+        { firm: "American-Express", rating: 3.4 },
+        { firm: "Aviva", rating: 3.0 },
+        { firm: "AXA-UK", rating: 3.4 },
+        { firm: "BNP-Paribas", rating: 3.0 },
+        { firm: "BNY-Mellon", rating: 2.7 }
+    ];
+
+    // Get firm names and ratings
+    const financeFirms = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+    const financeRatings = financeData.map(item => item.rating);
+
+    const averageFinanceRating = 2.9; // Use the correct average rating if different
+    const financeStarRating = getStarRating(averageFinanceRating);
+
+    // Line chart for Finance sector ratings
+    const ctxFinanceRatings = document.getElementById('financeRatingsChart').getContext('2d');
+    new Chart(ctxFinanceRatings, {
+        type: 'line',
+        data: {
+            labels: financeFirms,
+            datasets: [{
+                label: 'Average Rating',
+                data: financeRatings,
+                borderColor: 'blue',
+                backgroundColor: 'lightblue',
+                fill: false,
+                borderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Company'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Average Rating'
+                    },
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 0.5
+                    },
+                    grid: {
+                        display: true,
+                        borderColor: 'grey',
+                        borderDash: [2, 5],
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Average Ratings of Companies in the Finance Sector: ${averageFinanceRating} ${financeStarRating}`,
+                    color: 'blue',
+                    font: {
+                        size: 16
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+
+<script>
+    // Load the data for the Manufacturing sector
+    const manufacturingData = [
+        { firm: "Anglo-American", rating: 3.2 },
+        { firm: "BAT", rating: 3.3 },
+        { firm: "BP", rating: 3.1 }
+    ];
+
+    // Get firm names and ratings
+    const manufacturingFirms = ['A', 'B', 'C'];
+    const manufacturingRatings = manufacturingData.map(item => item.rating);
+
+    // Function to generate star rating string
+    function getStarRating(rating) {
+        const filledStars = Math.round(rating);
+        const emptyStars = 5 - filledStars;
+        return '★'.repeat(filledStars) + '☆'.repeat(emptyStars);
+    }
+
+    const averageRating = 3.2;
+    const starRating = getStarRating(averageRating);
+
+    // Line chart for Manufacturing sector ratings
+    const ctxManufacturingRatings = document.getElementById('manufacturingRatingsChart').getContext('2d');
+    new Chart(ctxManufacturingRatings, {
+        type: 'line',
+        data: {
+            labels: manufacturingFirms,
+            datasets: [{
+                label: 'Average Rating',
+                data: manufacturingRatings,
+                borderColor: 'blue',
+                backgroundColor: 'lightblue',
+                fill: false,
+                borderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Company'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Average Rating'
+                    },
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 0.5
+                    },
+                    grid: {
+                        display: true,
+                        borderColor: 'grey',
+                        borderDash: [2, 5],
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Average Ratings of Companies in the Manufacturing Sector: ${averageRating} ${starRating}`,
+                    color: 'blue',
+                    font: {
+                        size: 16
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

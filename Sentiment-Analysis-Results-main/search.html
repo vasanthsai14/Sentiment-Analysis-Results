@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Search</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
+            border-bottom: 2px solid #0056b3;
+        }
+        .icons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .icons i {
+            font-size: 1.5em;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+        #search-input {
+            width: 60%;
+            padding: 10px;
+            border: 2px solid #0056b3;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        #search-button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #0056b3;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        #search-button:hover {
+            background-color: #004494;
+        }
+        #search-results {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .company {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .company:hover {
+            background-color: #f1f1f1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .company h2 {
+            margin: 0;
+            color: #0056b3;
+        }
+        .company p {
+            margin: 5px 0;
+            color: #333;
+        }
+        .company .description {
+            font-style: italic;
+            color: #666;
+        }
+        .company .review-summary {
+            margin-top: 10px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="icons">
+                <i class="fas fa-bars" id="menu-bars"></i>
+                <i class="fas fa-search" id="search-icon"></i>
+                <a href="login.html" target="__blank"><i class="fas fa-user-plus"></i></a>
+            </div>
+        </nav>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search for companies...">
+            <button id="search-button">Search</button>
+        </div>
+    </header>
+    
+    <main>
+        <section id="search-results">
+            <!-- Search results will be dynamically loaded here -->
+        </section>
+    </main>
+    
+    <script>
+        // Sample data with additional fields
+        const companiesData = [
+    {
+        "name": "ActionCOACH",
+        "rating": 7.13,
+        "sector": "CONSULTING",
+        "description": "A global business coaching company providing business coaching and training services.",
+        "reviewSummary": "ActionCOACH offers effective business strategies and mentorship. However, some clients find the high costs and long commitment periods challenging."
+    },
+    {
+        "name": "Adecco",
+        "rating": 5.36,
+        "sector": "CONSULTING",
+        "description": "A leading staffing and recruitment agency offering a wide range of workforce solutions.",
+        "reviewSummary": "Adecco is known for its extensive network and professional staffing services. Some reviews mention occasional issues with job placement accuracy."
+    },
+    {
+        "name": "AlixPartners",
+        "rating": 7.32,
+        "sector": "CONSULTING",
+        "description": "A global consulting firm specializing in turnaround and restructuring services.",
+        "reviewSummary": "AlixPartners is praised for its expertise in crisis management and restructuring. Clients sometimes report high fees for services rendered."
+    },
+    {
+        "name": "Angard-Staffing",
+        "rating": 5.50,
+        "sector": "CONSULTING",
+        "description": "A staffing agency providing temporary and permanent staffing solutions across various sectors.",
+        "reviewSummary": "Angard-Staffing offers reliable staffing solutions but has received mixed feedback regarding the support and follow-up services."
+    },
+    {
+        "name": "Aon",
+        "rating": 6.52,
+        "sector": "CONSULTING",
+        "description": "A global provider of risk management, insurance, and reinsurance brokerage services.",
+        "reviewSummary": "Aon provides comprehensive risk management solutions. However, some clients have mentioned slow response times and complex service packages."
+    },
+    {
+        "name": "BDO",
+        "rating": 6.15,
+        "sector": "CONSULTING",
+        "description": "A network of public accounting firms providing audit, tax, and advisory services.",
+        "reviewSummary": "BDO is recognized for its professional service and industry expertise. Some reviews highlight the occasional lack of personalized attention."
+    },
+    {
+        "name": "BIS",
+        "rating": 5.82,
+        "sector": "CONSULTING",
+        "description": "A consulting firm offering business transformation and IT consultancy services.",
+        "reviewSummary": "BIS is appreciated for its strategic insights and IT solutions. However, there are occasional concerns about project management efficiency."
+    },
+    {
+        "name": "Achieving-for-Children",
+        "rating": 6.55,
+        "sector": "EDUCATION",
+        "description": "An organization providing educational services and support for children.",
+        "reviewSummary": "Achieving-for-Children is valued for its comprehensive support services. Some feedback mentions variability in service quality across different areas."
+    },
+    {
+        "name": "BPP-Holdings",
+        "rating": 5.49,
+        "sector": "EDUCATION",
+        "description": "A provider of professional and vocational education, including degree programs and training courses.",
+        "reviewSummary": "BPP-Holdings offers diverse educational programs and professional training. Some reviews indicate a need for improvements in course content and delivery."
+    },
+    {
+        "name": "AFH-Wealth-Management",
+        "rating": 4.37,
+        "sector": "FINANCE",
+        "description": "A financial planning and wealth management firm offering investment advice and financial planning services.",
+        "reviewSummary": "AFH-Wealth-Management provides personalized financial planning services. However, some clients have noted concerns about high fees and service transparency."
+    },
+    {
+        "name": "AJ-Bell",
+        "rating": 5.37,
+        "sector": "FINANCE",
+        "description": "A leading investment platform providing investment services and stockbroking solutions.",
+        "reviewSummary": "AJ-Bell is recognized for its user-friendly investment platform. Some reviews mention occasional issues with customer service response times."
+    },
+    {
+        "name": "American-Express",
+        "rating": 6.86,
+        "sector": "FINANCE",
+        "description": "A global financial services company specializing in payment card services and travel-related services.",
+        "reviewSummary": "American-Express is known for its premium financial products and excellent customer service. Some users have noted higher annual fees compared to competitors."
+    },
+    {
+        "name": "Aviva",
+        "rating": 6.05,
+        "sector": "FINANCE",
+        "description": "A multinational insurance company offering a range of insurance products and financial services.",
+        "reviewSummary": "Aviva provides a wide range of insurance products with solid coverage options. There are occasional comments about complex claim processes and customer support."
+    },
+    {
+        "name": "AXA-UK",
+        "rating": 6.74,
+        "sector": "FINANCE",
+        "description": "A leading insurance provider offering a variety of insurance and financial services in the UK.",
+        "reviewSummary": "AXA-UK is praised for its extensive insurance offerings and competitive rates. Some customers have experienced delays in claim processing."
+    },
+    {
+        "name": "BNP-Paribas",
+        "rating": 6.10,
+        "sector": "FINANCE",
+        "description": "A global banking and financial services company providing a range of financial products and services.",
+        "reviewSummary": "BNP-Paribas is recognized for its robust financial solutions and global presence. Some clients report issues with communication and account management."
+    },
+    {
+        "name": "BNY-Mellon",
+        "rating": 5.30,
+        "sector": "FINANCE",
+        "description": "A global investment company offering investment management and investment services.",
+        "reviewSummary": "BNY-Mellon offers strong investment management services. However, there are occasional concerns about service fees and account accessibility."
+    },
+    {
+        "name": "Abcam",
+        "rating": 7.61,
+        "sector": "HEALTH",
+        "description": "A global supplier of research tools and reagents for life science research.",
+        "reviewSummary": "Abcam is highly regarded for its quality research products and customer service. Some users have noted issues with product pricing and delivery times."
+    },
+    {
+        "name": "Abertawe-Bro-Morgannwg-University-Health-Board",
+        "rating": 3.16,
+        "sector": "HEALTH",
+        "description": "A health board responsible for delivering healthcare services across various hospitals and clinics.",
+        "reviewSummary": "Abertawe-Bro-Morgannwg University Health Board provides essential healthcare services. However, there are frequent concerns about waiting times and patient care quality."
+    },
+    {
+        "name": "Accor",
+        "rating": 6.64,
+        "sector": "HEALTH",
+        "description": "A global hospitality group managing a range of hotel brands and accommodations.",
+        "reviewSummary": "Accor is known for its diverse hotel offerings and high standards of service. Some guests report variability in service quality across different properties."
+    },
+    {
+        "name": "Active-Care-Group",
+        "rating": 5.31,
+        "sector": "HEALTH",
+        "description": "A provider of care services, including residential care and support for individuals with complex needs.",
+        "reviewSummary": "Active-Care-Group offers comprehensive care services. Some reviews mention inconsistencies in care quality and staff responsiveness."
+    },
+    {
+        "name": "Age-UK-The-National-Charity",
+        "rating": 6.58,
+        "sector": "HEALTH",
+        "description": "A charity organization providing support and services for older people across the UK.",
+        "reviewSummary": "Age-UK is praised for its valuable services and support for elderly individuals. Some feedback highlights challenges with resource allocation and service delivery."
+    },
+    {
+        "name": "Anglian-Water",
+        "rating": 7.06,
+        "sector": "HEALTH",
+        "description": "A utility company providing water and wastewater services in the UK.",
+        "reviewSummary": "Anglian-Water is commended for its reliable water services and customer support. Occasionally, there are complaints about service disruptions and billing issues."
+    },
+    {
+        "name": "Animal-and-Plant-Health-Agency",
+        "rating": 6.64,
+        "sector": "HEALTH",
+        "description": "A UK government agency focused on animal and plant health and biosecurity.",
+        "reviewSummary": "The Animal and Plant Health Agency is effective in managing health and biosecurity. Some reports indicate occasional delays in response times."
+    },
+    {
+        "name": "AstraZeneca",
+        "rating": 6.66,
+        "sector": "HEALTH",
+        "description": "A global biopharmaceutical company specializing in the discovery and development of innovative medicines.",
+        "reviewSummary": "AstraZeneca is noted for its advanced pharmaceutical research and development. Some users report issues with drug availability and pricing."
+    },
+    {
+        "name": "Anglo-American",
+        "rating": 6.46,
+        "sector": "MANUFACTURING",
+        "description": "A global mining company involved in the extraction and processing of minerals and metals.",
+        "reviewSummary": "Anglo-American is recognized for its significant mining operations and sustainability efforts. There are occasional concerns about environmental impact and labor practices."
+    },
+    {
+        "name": "BAT",
+        "rating": 6.66,
+        "sector": "MANUFACTURING",
+        "description": "A leading tobacco company known for its production and marketing of tobacco products.",
+        "reviewSummary": "BAT is known for its extensive tobacco portfolio and market presence. Some feedback includes concerns about health implications and corporate practices."
+    },
+    {
+        "name": "BP",
+        "rating": 6.23,
+        "sector": "MANUFACTURING",
+        "description": "A multinational oil and gas company involved in energy production and distribution.",
+        "reviewSummary": "BP is recognized for its energy resources and innovation in the energy sector. However, there are occasional critiques regarding environmental impact and safety issues."
+    },
+    {
+        "name": "BBC",
+        "rating": 6.92,
+        "sector": "MEDIA",
+        "description": "The British Broadcasting Corporation, a leading public service broadcaster in the UK.",
+        "reviewSummary": "The BBC is valued for its diverse programming and news coverage. Some reviews highlight concerns about impartiality and funding."
+    },
+    {
+        "name": "ALDI",
+        "rating": 5.63,
+        "sector": "RETAIL",
+        "description": "A global discount supermarket chain known for its low prices and efficient store operations.",
+        "reviewSummary": "ALDI is praised for its affordability and product quality. Some customers mention limited product selection and store layout issues."
+    },
+    {
+        "name": "Arcadia",
+        "rating": 5.43,
+        "sector": "RETAIL",
+        "description": "A retail group managing several well-known fashion brands and stores.",
+        "reviewSummary": "Arcadia is recognized for its fashion offerings and high-street presence. Some reviews indicate concerns about store conditions and customer service."
+    },
+    {
+        "name": "Arnold-Clark",
+        "rating": 5.45,
+        "sector": "RETAIL",
+        "description": "A large automotive retailer providing new and used vehicles and related services.",
+        "reviewSummary": "Arnold-Clark is known for its extensive vehicle inventory and customer service. However, some reviews mention issues with post-purchase support."
+    },
+    {
+        "name": "ASDA",
+        "rating": 5.59,
+        "sector": "RETAIL",
+        "description": "A major supermarket chain offering groceries, clothing, and general merchandise.",
+        "reviewSummary": "ASDA is noted for its competitive pricing and wide product range. Some feedback highlights concerns about store cleanliness and stock availability."
+    },
+    {
+        "name": "ASOS",
+        "rating": 5.62,
+        "sector": "RETAIL",
+        "description": "An online retailer specializing in fashion and beauty products.",
+        "reviewSummary": "ASOS is praised for its extensive fashion selection and online shopping experience. Some reviews mention issues with delivery times and returns process."
+    },
+    {
+        "name": "B-and-M-Retail",
+        "rating": 5.93,
+        "sector": "RETAIL",
+        "description": "A discount retailer offering a wide range of products including home goods, toys, and groceries.",
+        "reviewSummary": "B-and-M-Retail is known for its value-for-money products and store layout. Some feedback includes concerns about product quality and customer service."
+    },
+    {
+        "name": "B-and-Q",
+        "rating": 5.63,
+        "sector": "RETAIL",
+        "description": "A home improvement and garden center retailer.",
+        "reviewSummary": "B-and-Q is recognized for its home and garden products. Some reviews highlight issues with product availability and store service."
+    },
+    {
+        "name": "BHS",
+        "rating": 5.98,
+        "sector": "RETAIL",
+        "description": "A former high-street retailer known for its clothing and home goods.",
+        "reviewSummary": "BHS was known for its range of products and store presence. There are mixed reviews about the store's service and product quality before its closure."
+    },
+    {
+        "name": "Accenture",
+        "rating": 6.92,
+        "sector": "TECH",
+        "description": "A global professional services company providing consulting, technology, and outsourcing services.",
+        "reviewSummary": "Accenture is highly regarded for its consulting and technology solutions. Some reviews mention high project costs and intensive work demands."
+    },
+    {
+        "name": "Amey",
+        "rating": 5.66,
+        "sector": "TECH",
+        "description": "A company providing infrastructure and environmental services.",
+        "reviewSummary": "Amey is known for its infrastructure services and project delivery. Some feedback includes concerns about project management and service consistency."
+    },
+    {
+        "name": "Apple",
+        "rating": 7.24,
+        "sector": "TECH",
+        "description": "A leading technology company known for its innovative products including iPhones, iPads, and Mac computers.",
+        "reviewSummary": "Apple is praised for its product innovation and ecosystem. Some users mention high product prices and occasional software issues."
+    },
+    {
+        "name": "AQA",
+        "rating": 6.17,
+        "sector": "TECH",
+        "description": "An educational organization providing assessment services and qualifications.",
+        "reviewSummary": "AQA is valued for its assessment and qualification services. Some reviews highlight areas for improvement in exam administration and support."
+    },
+    {
+        "name": "BT",
+        "rating": 6.29,
+        "sector": "TECH",
+        "description": "A multinational telecommunications company offering broadband, phone, and television services.",
+        "reviewSummary": "BT is known for its comprehensive telecom services and network coverage. Some feedback mentions issues with customer service and service reliability."
+    }
+];
+
+
+        // Function to display all companies
+        function displayResults(data) {
+            const resultsContainer = document.getElementById('search-results');
+            resultsContainer.innerHTML = ''; // Clear previous results
+            
+            data.forEach(company => {
+                const companyElement = document.createElement('div');
+                companyElement.classList.add('company');
+                companyElement.innerHTML = `
+                    <h2>${company.name}</h2>
+                    <p><strong>Rating:</strong> ${company.rating}</p>
+                    <p><strong>Sector:</strong> ${company.sector}</p>
+                    <p class="description"><strong>Description:</strong> ${company.description}</p>
+                    <p class="review-summary"><strong>Review Summary:</strong> ${company.reviewSummary}</p>
+                `;
+                resultsContainer.appendChild(companyElement);
+            });
+        }
+
+        // Display all companies initially
+        displayResults(companiesData);
+
+        // Filter results as user types in the search bar
+        document.getElementById('search-input').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const filteredData = companiesData.filter(company =>
+                company.name.toLowerCase().includes(query)
+            );
+            displayResults(filteredData);
+        });
+    </script>
+</body>
+</html>
